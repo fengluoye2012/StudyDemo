@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.mydesign.modes.newwidgets.MyLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_f8771a"
+    android:orientation="vertical"
+    tools:context="com.mydesign.modes.newwidgets.OverScrollerActivity">
+
+    <com.mydesign.modes.newwidgets.SideSlipDeleteView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_alignParentLeft="true"
+            android:background="@color/color_ffa2a2"
+            android:gravity="center"
+            android:text="左边的" />
+
+        <TextView
+            android:id="@+id/tv_right"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:background="@color/color_f8771a"
+            android:gravity="center"
+            android:text="删除" />
+    </com.mydesign.modes.newwidgets.SideSlipDeleteView>
+
+    <com.mydesign.modes.newwidgets.MyListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white" />
+</com.mydesign.modes.newwidgets.MyLinearLayout>

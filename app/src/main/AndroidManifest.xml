@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mydesign.modes">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-feature
+        android:name="android.hardware.camera2"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name=".base.MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".main.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".main.SecondActivity" />
+        <activity android:name=".newwidgets.NewWidgetsActivity" />
+        <activity android:name=".newwidgets.PaletteTestActivity" />
+        <activity
+            android:name=".newwidgets.BottomNavigationActivity"
+            android:label="@string/title_activity_bottom_navigation" />
+        <activity android:name=".newwidgets.CoordinatorLayoutActivity" />
+        <activity android:name=".newwidgets.TouTiaoDetailActivity" />
+        <activity android:name=".newwidgets.TouchEventActivity" />
+        <activity android:name=".newwidgets.OverScrollerActivity" />
+        <activity
+            android:name=".newwidgets.CoordinatorLayoutTestActivity"
+            android:label="@string/title_activity_coordinator_layout_test"
+            android:theme="@style/AppTheme" />
+
+        <!--  -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.mydesign.modes.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <activity android:name=".aidl_test.AIDLTestActivity" />
+
+        <service
+            android:name=".aidl_test.RemoteService"
+            android:enabled="true"
+            android:exported="true"
+            android:process=".aidl.test" />
+
+        <activity android:name=".service_test.ServiceTestActivity" />
+
+        <service
+            android:name=".service_test.TestService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".service_test.BindService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".installAPP.InstallAppActivity" />
+        <activity android:name=".change_skin.ChangeSkinActivity"></activity>
+    </application>
+
+</manifest>

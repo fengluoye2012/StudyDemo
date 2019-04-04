@@ -1,0 +1,32 @@
+线程间通信：
+1：synchronized关键字，Object类wait(),notify()/notifyAll()；
+2：Lock类的lock(),unLock()方法，Condition类的await()，signal()/signalAll()方法
+一：wait()，notify()/notifyAll():
+在多线程情况下，有线程A，线程B,在线程B 执行到一定情况下，需要用到线程A的数据，这种情况下怎么解决呢？
+可以使用Object的wait()，notify()/notifyAll()方法；必须配合synchronized关键字,用于线程同步中
+wait()：当前线程释放共享资源的锁，然后从Running状态退出，进入等待队列，直到被再次唤醒；
+        当前线程立即释放锁；其他线程有机会获得锁对象；
+wait(long millis, int nanos)：等待某一段时间内是否有线程对锁进行唤醒，如果超过这个时间则自动唤醒；
+
+notify():可以随机唤醒等待队列中等待同一个共享资源的“一个”线程，并使该线程退出等待队列，进入runnable状态
+         ，也就是notify()方法仅通知一个线程；但是不是立即释放锁对象，要执行完同步代码块；
+notifyAll()：可以使所有正在等待队列中等待同一共享资源的“全部”线程从等待状态退出，进入runnable状态；
+             此时，优先级最高的那个线程最先执行，但也有可能随机执行，因为这取决于JVM虚拟机的实现。
+
+join()：使所属的线程对象x正常执行run()方法中的任务，而使当前线程z进行无限期的阻塞，等待线程x销毁
+        后再继续执行线程z后面的代码；内部使用wait()方法进行等待；
+join(long millis):等待一段时间，自动唤醒；
+
+二：Condition类：await()，signal()/signalAll() 方法对应于 wait(),notify()/notifyAll()方法;
+  await()方法被调用后，会立即释放当前锁对象；
+  await(long time, TimeUnit unit):等待一段时间内，是否有线程对该锁进行唤醒，如果没有唤醒，会自动唤醒；
+  signal()方法被调用之后，执行完当前锁代码块的方法，才释放锁对象；
+
+  Condition类和synchronized关键字的区别:
+  Condition类是JDK5中出现的技术,使用它有更好的灵活性，比如可以实现多路通知功能，也就是在一个Lock对象
+  里面可以创建多个Condition(即对象监视器)实例，线程对象可以注册在执行的Condition中，从而可以更有选择
+  性的进行线程通知，在调度线程上更加灵活。
+
+  synchronized 相当于整个Lock对象中只有一个单一的Condition对象，所有的线程注册在它一个对象身上，
+  线程开始notifyAll()时，需要通知所有的Waiting 线程，没有选择权，会出现相当大的效率问题；
+

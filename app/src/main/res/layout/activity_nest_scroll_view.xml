@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- CoordinatorLayout 的使用 https://www.jianshu.com/p/7caa5f4f49bd -->
+
+        <!--layout_scrollFlags 总共有:五种状态
+        配合 app:layout_behavior="@string/appbar_scrolling_view_behavior"；
+       1： scroll:和可滑动部分一起滑动；
+       2： scroll|enterAlways: 上滑：往上滑动消失；下滑：显示出来；
+       3： scroll|enterAlways|enterAlwaysCollapsed 配合 minHeight
+          上滑往上消失，下滑的时候和2有区别，先滑出minHeight部分；
+       4：scroll|exitUntilCollapsed 配合minHeight
+        minHeight部分一直存在，滑到顶，隐藏部分才随之滑出
+       5：scroll|snap:上滑到一定程度才 消失；下滑到一定程度才出现；
+        -->
+
+        <!--
+        contentScrim:折叠后的颜色；
+        -->
+
+        <!--  layout_collapseMode
+        pin：CollapsingToolbarLayout折叠后，此布局将固定在顶部。
+        -->
+        <!---->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll"
+            android:orientation="vertical">
+
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/detail_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:layout_below="@+id/view"
+                app:contentInsetLeft="0dp"
+                app:contentInsetRight="0dp"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:title="fengluoye2012fengluoye"
+                app:titleMargin="0dp"
+                app:titleTextColor="#e9e6e6">
+
+
+            </android.support.v7.widget.Toolbar>
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_gravity="bottom"
+                android:background="@color/colorPrimary"
+                app:tabGravity="center"
+                app:tabIndicatorHeight="2dp"
+                app:tabMode="scrollable"
+                app:tabPadding="0dp" />
+        </LinearLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    </android.support.v4.view.ViewPager>
+
+</android.support.design.widget.CoordinatorLayout>

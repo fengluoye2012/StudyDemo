@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.mydesign.modes.newwidgets.MyScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <com.mydesign.modes.newwidgets.TouchDelegateView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:orientation="vertical"
+                android:background="@color/color_ffa2a2">
+
+                <TextView
+                    android:id="@+id/tv_other"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:background="@color/color_f8771a"
+                    android:gravity="center"
+                    android:text="顶部View" />
+            </com.mydesign.modes.newwidgets.TouchDelegateView>
+
+            <com.mydesign.modes.newwidgets.MyListView
+                android:id="@+id/listView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@color/color_ffa2a2"
+                android:gravity="center"
+                android:text="顶部View" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@color/color_ffa2a2"
+                android:gravity="center"
+                android:text="顶部View" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@color/color_ffa2a2"
+                android:gravity="center"
+                android:text="顶部View" />
+
+
+        </LinearLayout>
+    </com.mydesign.modes.newwidgets.MyScrollView>
+
+</LinearLayout>

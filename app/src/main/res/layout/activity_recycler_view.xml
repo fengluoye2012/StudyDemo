@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.mydesign.modes.newwidgets.NewWidgetsActivity">
+
+    <!--ConstraintLayout 可以说是LinearLayout 和 RelativeLayout 的合体-->
+
+    <!-- https://blog.csdn.net/u013187628/article/details/60751812 -->
+    <!--layout_constraintLeft_toRightOf 按钮B的左边被约束到按钮A的右侧 -->
+    <!--layout_constraintRight_toLeftOf 按钮B的右边被约束到按钮A的左侧 -->
+    <!--layout_constraintLeft_toLeftOf  B和A 左侧对齐 -->
+    <!--layout_constraintRight_toRightOf  B和A 右侧对齐 -->
+
+    <!--layout_constraintTop_toBottomOf 按钮B的顶部边被约束到按钮A的底侧 -->
+    <!--layout_constraintBottom_toTopOf 按钮B的底部边被约束到按钮A的顶侧 -->
+
+    <!--layout_constraintTop_toTopOf B和A 顶部对齐 -->
+    <!--layout_constraintBottom_toBottomOf B和A 底部对齐 -->
+
+    <!--layout_constraintBaseline_toBaselineOf A和B 中线对其-->
+    <!--layout_constraintBaseline_creator  未知-->
+
+    <!-- app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="parent"
+        水平居中
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+
+        layout_constraintHorizontal_bias 从0-1 距离左侧占整体的a%
+     -->
+
+    <!--
+     app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        竖直居中
+
+         app:layout_constraintVertical_bias="0.1"   从0-1 距离顶端占整体的a%
+    -->
+
+    <!--
+    layout_margin 和RelativeLayout用法相同
+    -->
+
+    <!-- 设置了layout_constraintLeft_toRightOf 相关的属性之后，A 设置visibility="gone"
+    layout_goneMarginLeft
+    -->
+
+    <!--
+    layout_constraintDimensionRatio 宽高比 宽或者高为0;
+    必须和layout_constraintLeft_toRightOf 等搭配使用
+    -->
+
+    <!--
+     android:layout_width="0dp"  相当于wrap_content;
+    -->
+
+    <!--
+    链式   相互引用
+
+    可配合 layout_constraintHorizontal_weight
+    -->
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:background="#a3a5a7"
+        android:gravity="center_horizontal"
+        android:text="A"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
+
+
+    <TextView
+        android:id="@+id/tv_b"
+        android:layout_width="100dp"
+        android:layout_height="0dp"
+        android:background="@color/colorAccent"
+        android:gravity="center"
+        android:text="B"
+        app:layout_constraintDimensionRatio="3"
+        app:layout_constraintLeft_toRightOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+    <!--链式 -->
+    <TextView
+        android:id="@+id/tv_c"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorPrimary"
+        android:text="2"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintHorizontal_weight="3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/tv_d"
+        app:layout_constraintTop_toBottomOf="@+id/inputLayout" />
+
+
+    <TextView
+        android:id="@+id/tv_d"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="10dp"
+        android:background="#024552"
+        android:text="140"
+        app:layout_constraintHorizontal_weight="2"
+        app:layout_constraintLeft_toRightOf="@id/tv_c"
+        app:layout_constraintRight_toLeftOf="@id/tv_e"
+        app:layout_constraintTop_toBottomOf="@+id/inputLayout"
+        app:layout_constraintTop_toTopOf="@id/tv_c" />
+
+    <TextView
+        android:id="@+id/tv_e"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:background="@color/colorAccent"
+        android:text="140"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/tv_d"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputLayout"
+        app:layout_constraintTop_toTopOf="@id/tv_c" />
+
+    <!--LinearLayout-->
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/inputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:hint="请输入"
+        android:textColorHint="@color/colorAccent"
+        app:counterEnabled="true"
+        app:counterMaxLength="40"
+        app:errorEnabled="true"
+        app:hintEnabled="true"
+        app:hintTextAppearance="@color/colorAccent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:passwordToggleEnabled="false">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#000000" />
+
+
+    </android.support.design.widget.TextInputLayout>
+
+    <!-- <include layout="@layout/layout_title"/> -->
+    <com.mydesign.modes.newwidgets.CommonHeadTitle
+        android:id="@+id/commonHeadTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <android.support.v7.widget.SearchView
+        app:queryBackground="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+    </android.support.v7.widget.SearchView>
+
+</android.support.constraint.ConstraintLayout>

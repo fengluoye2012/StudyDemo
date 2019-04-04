@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <corners android:radius="13dp" />
+
+
+    <!--
+   android:angle="0"//效果是：是从左到右，按照开始颜色到结束颜色来渲染的
+   android:angle="45"//效果是：是从左下角到右上角，按照开始颜色到结束颜色来渲染的
+android:angle="90"//效果是：是从下到上，按照开始颜色到结束颜色来渲染的
+android:angle="135"//效果是：是从右下角到左上角，按照开始颜色到结束颜色来渲染的
+android:angle="180"//效果是：从右往左，按照开始颜色到结束颜色来渲染的
+android:angle="225"//效果是：从右上角往左下角，按照开始颜色到结束颜色来渲染的
+android:angle="270"//效果是：从上到下，按照开始颜色到结束颜色来渲染的
+android:angle="315"//效果是：从左上角到右下角，按照开始颜色到结束颜色来渲染的
+android:angle="360"//效果是：从左上角到右下角，按照开始颜色到结束颜色来渲染的
+
+   -->
+
+    <gradient
+        android:angle="0"
+        android:centerColor="@color/color_f8771a"
+        android:centerX="50%"
+        android:centerY="50%"
+        android:endColor="@color/block"
+        android:startColor="@color/color_ffa2a2"
+        android:type="linear"
+        android:useLevel="false" />
+
+    <!--type =sweep
+
+     -->
+
+</shape>

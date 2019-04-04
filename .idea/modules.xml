@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/DesignModeTest.iml" filepath="$PROJECT_DIR$/DesignModeTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/baserecyclerviewhelp/baserecyclerviewhelp.iml" filepath="$PROJECT_DIR$/baserecyclerviewhelp/baserecyclerviewhelp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/twinklingrefreshlayout/twinklingrefreshlayout.iml" filepath="$PROJECT_DIR$/twinklingrefreshlayout/twinklingrefreshlayout.iml" />
+    </modules>
+  </component>
+</project>

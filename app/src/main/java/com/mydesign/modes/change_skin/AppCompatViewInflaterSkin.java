@@ -43,10 +43,16 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.InflateException;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.mydesign.modes.R;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -69,7 +75,7 @@ class AppCompatViewInflaterSkin {
             "android.webkit."
     };
 
-    private static final String LOG_TAG = "AppCompatViewInflater";
+    private static final String LOG_TAG = AppCompatViewInflaterSkin.class.getSimpleName();
 
     private static final Map<String, Constructor<? extends View>> sConstructorMap
             = new ArrayMap<>();
@@ -140,11 +146,13 @@ class AppCompatViewInflaterSkin {
                 break;
         }
 
-        if (view == null && originalContext != context) {
+        //&& originalContext != context
+        if (view == null) {
             // If the original context does not equal our themed context, then we need to manually
             // inflate it using the name so that android:theme takes effect.
             view = createViewFromTag(context, name, attrs);
         }
+
 
         if (view != null) {
             // If we have created a view, check its android:onClick
@@ -161,12 +169,14 @@ class AppCompatViewInflaterSkin {
 
         try {
             mConstructorArgs[0] = context;
+            //可以从attrs获取到对应的
             mConstructorArgs[1] = attrs;
-
+            //没有.表示是系统View；
             if (-1 == name.indexOf('.')) {
                 for (int i = 0; i < sClassPrefixList.length; i++) {
                     final View view = createView(context, name, sClassPrefixList[i]);
                     if (view != null) {
+                        addToMap(context, view, attrs);
                         return view;
                     }
                 }
@@ -183,6 +193,36 @@ class AppCompatViewInflaterSkin {
             mConstructorArgs[0] = null;
             mConstructorArgs[1] = null;
         }
+    }
+
+    /**
+     * ImageView ImageView_src
+     * TextView TextView_textColor,TextView_text
+     * View  View_background
+     *
+     * @param context
+     * @param view
+     * @param attrs
+     */
+    private void addToMap(Context context, View view, AttributeSet attrs) {
+        Log.e(LOG_TAG, "View::" + view.toString());
+        int attributeCount = attrs.getAttributeCount();
+        for (int i = 0; i < attributeCount; i++) {
+            String attributeName = attrs.getAttributeName(i);
+            String attributeValue = attrs.getAttributeValue(i);
+            Log.e(LOG_TAG, attributeName + ",,," + attributeValue);
+        }
+
+        if (view instanceof TextView) {
+            Log.e(LOG_TAG,"TextView");
+
+        } else if (view instanceof ImageView) {
+            Log.e(LOG_TAG,"ImageView");
+        } else {
+            Log.e(LOG_TAG,"////////////");
+        }
+        List<View> views = SkinManager.getInstance().get(context);
+        views.add(view);
     }
 
     /**
@@ -209,6 +249,7 @@ class AppCompatViewInflaterSkin {
         a.recycle();
     }
 
+    //转换为完整的类名，通过反射创建；
     private View createView(Context context, String name, String prefix)
             throws ClassNotFoundException, InflateException {
         Constructor<? extends View> constructor = sConstructorMap.get(name);

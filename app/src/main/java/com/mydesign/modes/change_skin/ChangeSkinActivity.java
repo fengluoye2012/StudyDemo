@@ -1,96 +1,93 @@
 package com.mydesign.modes.change_skin;
 
+import android.app.Activity;
 import android.content.Context;
-import android.os.Build;
+import android.content.Intent;
+import android.content.res.Resources;
+import android.content.res.XmlResourceParser;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.view.ViewCompat;
+import android.os.Environment;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDelegate;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewParent;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.mydesign.modes.R;
 
-import org.xmlpull.v1.XmlPullParser;
+import java.io.File;
 
-import static android.support.v7.widget.VectorEnabledTintResources.MAX_SDK_WHERE_REQUIRED;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-//如何加载资源文件
-public class ChangeSkinActivity extends AppCompatActivity {
+/**
+ * 1:搞明白APP 是如何加载res资源的；
+ * 2:缓存所有打开的页面的View；
+ * 解析View中的属性；
+ * 3：如何让缓存的View加载新的资源文件；
+ */
+public class ChangeSkinActivity extends  Activity{
 
+
+    @BindView(R.id.tv_change)
+    TextView tvChange;
+    @BindView(R.id.imageView)
+    ImageView imageView;
+    @BindView(R.id.tv_next)
+    TextView tvNext;
+    private Resources resources;
+    private String TAG = ChangeSkinActivity.class.getSimpleName();
+    private Activity act;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //LayoutInflater 是系统服务之一；可以将setFactory()放在父类中
+
+
+        act = this;
+
+       /* //LayoutInflater 是系统服务之一；可以将setFactory()放在父类中
         LayoutInflater layoutInflater = LayoutInflater.from(this);
-        layoutInflater.setFactory(new SkinFactory());
+        layoutInflater.setFactory(new SkinFactory(act));*/
+
         setContentView(R.layout.activity_change_skin);
+        ButterKnife.bind(this);
     }
 
-    //参考AppCompatDelegateImplV9类
-    class SkinFactory implements LayoutInflater.Factory2 {
-        private AppCompatViewInflaterSkin mAppCompatViewInflater;
-        private final boolean IS_PRE_LOLLIPOP = Build.VERSION.SDK_INT < 21;
 
-        @Override
-        public View onCreateView(String name, Context context, AttributeSet attrs) {
-            return onCreateView(null, name, context, attrs);
+    @OnClick({R.id.tv_change, R.id.tv_next})
+    public void onViewClicked(View view) {
+
+        switch (view.getId()) {
+            case R.id.tv_next:
+                startActivity(new Intent(act, ChangeSkinActivity.class));
+                break;
+            case R.id.tv_change:
+               /* //所有的资源都可以通过Resources获取到；
+                XmlResourceParser layout = getResources().getLayout(R.layout.activity_change_skin);
+                int color = getResources().getColor(R.color.color_e83b36);
+                //Drawable drawable = getResources().getDrawable(R.drawable.image_liu);*/
+
+                SkinManager.getInstance().changeSkin();
+
+                initRes();
+                loadImage();
+                break;
         }
+    }
 
-        @Override
-        public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
-            return createView(parent, name, context, attrs);
-        }
 
-        public View createView(View parent, final String name, @NonNull Context context, @NonNull AttributeSet attrs) {
-            if (mAppCompatViewInflater == null) {
-                mAppCompatViewInflater = new AppCompatViewInflaterSkin();
-            }
+    //可以放在Application中或者MainActivity；
+    private void initRes() {
+        String filePath = Environment.getExternalStorageDirectory() + File.separator + "a_test_change/app.zip";
+        OutResources.getInstance().initRes(filePath);
+    }
 
-            boolean inheritContext = false;
-            if (IS_PRE_LOLLIPOP) {
-                inheritContext = (attrs instanceof XmlPullParser)
-                        // If we have a XmlPullParser, we can detect where we are in the layout
-                        ? ((XmlPullParser) attrs).getDepth() > 1
-                        // Otherwise we have to use the old heuristic
-                        : shouldInheritContext((ViewParent) parent);
-            }
-
-            return mAppCompatViewInflater.createView(parent, name, context, attrs, inheritContext, IS_PRE_LOLLIPOP, /* Only read android:theme pre-L (L+ handles this anyway) */
-                    true, /* Read read app:theme as a fallback at all times for legacy reasons */
-                    shouldBeUsed() /* Only tint wrap the context if enabled */);
-        }
-
-        public boolean shouldBeUsed() {
-            return AppCompatDelegate.isCompatVectorFromResourcesEnabled() && Build.VERSION.SDK_INT <= MAX_SDK_WHERE_REQUIRED;
-        }
-
-        private boolean shouldInheritContext(ViewParent parent) {
-            if (parent == null) {
-                // The initial parent is null so just return false
-                return false;
-            }
-            final View windowDecor = getWindow().getDecorView();
-            while (true) {
-                if (parent == null) {
-                    // Bingo. We've hit a view which has a null parent before being terminated from
-                    // the loop. This is (most probably) because it's the root view in an inflation
-                    // call, therefore we should inherit. This works as the inflated layout is only
-                    // added to the hierarchy at the end of the inflate() call.
-                    return true;
-                } else if (parent == windowDecor || !(parent instanceof View) || ViewCompat.isAttachedToWindow((View) parent)) {
-                    // We have either hit the window's decor view, a parent which isn't a View
-                    // (i.e. ViewRootImpl), or an attached view, so we know that the original parent
-                    // is currently added to the view hierarchy. This means that it has not be
-                    // inflated in the current inflate() call and we should not inherit the context.
-                    return false;
-                }
-                parent = parent.getParent();
-            }
-        }
+    private void loadImage() {
+        imageView.setImageDrawable(OutResources.getInstance().getDrawable(act, R.drawable.image_liu));
     }
 }

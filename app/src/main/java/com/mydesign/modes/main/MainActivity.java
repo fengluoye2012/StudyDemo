@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.mydesign.modes.R;
 import com.mydesign.modes.aidl_test.AIDLTestActivity;
+import com.mydesign.modes.change_skin.ChangeSkinActivity;
 import com.mydesign.modes.design_modes.build.BuilderClient;
 import com.mydesign.modes.design_modes.observer.ObserverClient;
 import com.mydesign.modes.design_modes.singleton.SingletonTest2;
@@ -82,7 +83,7 @@ public class MainActivity extends BaseTitleActivity {
         list.add("Service");
         list.add("AIDL Test");
         list.add("安装APK文件");
-        list.add("Android新控件111");
+        list.add("一键换肤");
         list.add("Android新控件111");
         list.add("Android新控件111");
         list.add("Android新控件111");
@@ -160,6 +161,9 @@ public class MainActivity extends BaseTitleActivity {
                 break;
             case 13:
                 startActivity(new Intent(this, InstallAppActivity.class));
+                break;
+            case 14:
+                startActivity(new Intent(this, ChangeSkinActivity.class));
                 break;
         }
     }

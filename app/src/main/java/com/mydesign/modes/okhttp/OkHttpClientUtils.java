@@ -34,7 +34,7 @@ public class OkHttpClientUtils {
     private static OkHttpClientUtils instance = null;
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
-    private final OkHttpClient client = new OkHttpClient.Builder().addInterceptor(null)  //拦截
+    private final OkHttpClient client = new OkHttpClient.Builder()//.addInterceptor(null)  //拦截
             //.cache(new Cache(new File(), 50L)) //缓存
             .connectTimeout(5, TimeUnit.SECONDS) //5秒钟
             .callTimeout(5, TimeUnit.SECONDS).build();

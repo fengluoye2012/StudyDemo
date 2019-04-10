@@ -6,7 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.multidex.MultiDex;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.mydesign.modes.R;
 import com.mydesign.modes.newwidgets.ProgressWebView;
+import com.mydesign.modes.plug.hook.ActivityManagerHookHelper;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 
@@ -19,6 +21,9 @@ public class MyApplication extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
+
+
+
         MultiDex.install(base);
     }
 
@@ -35,6 +40,7 @@ public class MyApplication extends Application {
         });
 
         progressWebView = new ProgressWebView(context);
+        setTheme(R.style.AppTheme);
     }
 
     public static Context getContext() {

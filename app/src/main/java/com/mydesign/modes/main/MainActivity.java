@@ -21,6 +21,7 @@ import com.mydesign.modes.datastructure.ListTest;
 import com.mydesign.modes.installAPP.InstallAppActivity;
 import com.mydesign.modes.newwidgets.NewWidgetsTest;
 import com.mydesign.modes.okhttp.OKHttpTest;
+import com.mydesign.modes.plug.PlugActivity;
 import com.mydesign.modes.retrofit.RetrofitUtils;
 import com.mydesign.modes.service_test.ServiceTestActivity;
 import com.mydesign.modes.synchronizedtest.ObjectSynchronizedTest;
@@ -41,7 +42,9 @@ import butterknife.OnItemClick;
 
 import static com.mydesign.modes.synchronizedtest.threadcommu.ThreadCommuTest.test;
 
-
+/**
+ * 插件化 热修复 增量更新
+ */
 public class MainActivity extends BaseTitleActivity {
 
     @BindString(R.string.app_name)
@@ -84,8 +87,8 @@ public class MainActivity extends BaseTitleActivity {
         list.add("AIDL Test");
         list.add("安装APK文件");
         list.add("一键换肤");
-        list.add("Android新控件111");
-        list.add("Android新控件111");
+        list.add("热修复");
+        list.add("插件化");
         list.add("Android新控件111");
         list.add("Android新控件111");
         list.add("Android新控件111");
@@ -165,6 +168,11 @@ public class MainActivity extends BaseTitleActivity {
             case 14:
                 startActivity(new Intent(this, ChangeSkinActivity.class));
                 break;
+
+            case 16:
+                startActivity(new Intent(this, PlugActivity.class));
+                break;
+
         }
     }
 

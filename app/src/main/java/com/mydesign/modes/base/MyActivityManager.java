@@ -4,14 +4,14 @@ import android.app.Activity;
 
 import java.util.Stack;
 
-public class ActivityManager {
+public class MyActivityManager {
     /**
      * 接收activity的Stack
      */
     private static Stack<Activity> activityStack = null;
-    private static ActivityManager activityManager;
+    private static MyActivityManager activityManager;
 
-    private ActivityManager() {
+    private MyActivityManager() {
     }
 
     /**
@@ -19,9 +19,9 @@ public class ActivityManager {
      *
      * @return
      */
-    public static ActivityManager getInstance() {
+    public static MyActivityManager getInstance() {
         if (activityManager == null) {
-            activityManager = new ActivityManager();
+            activityManager = new MyActivityManager();
         }
         return activityManager;
     }

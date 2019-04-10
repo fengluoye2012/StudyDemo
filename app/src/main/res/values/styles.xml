@@ -10,6 +10,12 @@
 
     </style>
 
+    <style name="SplashTheme" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/splash</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
     <style name="TextViewStyle_Match">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>

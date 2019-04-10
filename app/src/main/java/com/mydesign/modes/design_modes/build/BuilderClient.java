@@ -1,6 +1,5 @@
 package com.mydesign.modes.design_modes.build;
 
-import android.os.Build;
 import android.util.Log;
 
 import com.mydesign.modes.module.BaseResp;

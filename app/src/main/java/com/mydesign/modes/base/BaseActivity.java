@@ -26,7 +26,7 @@ public abstract class BaseActivity extends Activity {
     private void init() {
         act = this;
         TAG = act.getClass().getSimpleName();
-        ActivityManager.getInstance().pushActivity(act);
+        MyActivityManager.getInstance().pushActivity(act);
     }
 
     private void fullScreen(boolean fullScreen) {
@@ -62,7 +62,7 @@ public abstract class BaseActivity extends Activity {
 
     @Override
     protected void onDestroy() {
-        ActivityManager.getInstance().popActivity(act);
+        MyActivityManager.getInstance().popActivity(act);
         super.onDestroy();
     }
 

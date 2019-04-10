@@ -17,10 +17,10 @@
 //package com.mydesign.modes;
 //
 //import android.annotation.UserIdInt;
-//import android.app.ActivityManager;
-//import android.app.ActivityManager.RunningServiceInfo;
-//import android.app.ActivityManager.RunningTaskInfo;
-//import android.app.ActivityManager.StackInfo;
+//import android.app.MyActivityManager;
+//import android.app.MyActivityManager.RunningServiceInfo;
+//import android.app.MyActivityManager.RunningTaskInfo;
+//import android.app.MyActivityManager.StackInfo;
 //import android.app.ActivityOptions;
 //import android.app.ApplicationErrorReport;
 //import android.app.Notification;
@@ -108,13 +108,13 @@
 //    public String getCallingPackage(IBinder token) throws RemoteException;
 //    public ComponentName getCallingActivity(IBinder token) throws RemoteException;
 //    public List<IAppTask> getAppTasks(String callingPackage) throws RemoteException;
-//    public int addAppTask(IBinder activityToken, Intent intent, ActivityManager.TaskDescription description, Bitmap thumbnail) throws RemoteException;
+//    public int addAppTask(IBinder activityToken, Intent intent, MyActivityManager.TaskDescription description, Bitmap thumbnail) throws RemoteException;
 //    public Point getAppTaskThumbnailSize() throws RemoteException;
 //    public List<RunningTaskInfo> getTasks(int maxNum, int flags) throws RemoteException;
-//    public ParceledListSlice<ActivityManager.RecentTaskInfo> getRecentTasks(int maxNum, int flags, int userId) throws RemoteException;
-//    public ActivityManager.TaskThumbnail getTaskThumbnail(int taskId) throws RemoteException;
+//    public ParceledListSlice<MyActivityManager.RecentTaskInfo> getRecentTasks(int maxNum, int flags, int userId) throws RemoteException;
+//    public MyActivityManager.TaskThumbnail getTaskThumbnail(int taskId) throws RemoteException;
 //    public List<RunningServiceInfo> getServices(int maxNum, int flags) throws RemoteException;
-//    public List<ActivityManager.ProcessErrorStateInfo> getProcessesInErrorState()
+//    public List<MyActivityManager.ProcessErrorStateInfo> getProcessesInErrorState()
 //            throws RemoteException;
 //    public void moveTaskToFront(int task, int flags, Bundle options) throws RemoteException;
 //    public boolean moveActivityTaskToBack(IBinder token, boolean nonRoot) throws RemoteException;
@@ -267,7 +267,7 @@
 //    public void showWaitingForDebugger(IApplicationThread who, boolean waiting)
 //            throws RemoteException;
 //
-//    public void getMemoryInfo(ActivityManager.MemoryInfo outInfo) throws RemoteException;
+//    public void getMemoryInfo(MyActivityManager.MemoryInfo outInfo) throws RemoteException;
 //
 //    public void killBackgroundProcesses(final String packageName, int userId)
 //            throws RemoteException;
@@ -316,14 +316,14 @@
 //     */
 //    public void signalPersistentProcesses(int signal) throws RemoteException;
 //    // Retrieve running application processes in the system
-//    public List<ActivityManager.RunningAppProcessInfo> getRunningAppProcesses()
+//    public List<MyActivityManager.RunningAppProcessInfo> getRunningAppProcesses()
 //            throws RemoteException;
 //    // Retrieve info of applications installed on external media that are currently
 //    // running.
 //    public List<ApplicationInfo> getRunningExternalApplications()
 //            throws RemoteException;
 //    // Get memory information about the calling process.
-//    public void getMyMemoryState(ActivityManager.RunningAppProcessInfo outInfo)
+//    public void getMyMemoryState(MyActivityManager.RunningAppProcessInfo outInfo)
 //            throws RemoteException;
 //    // Get device configuration
 //    public ConfigurationInfo getDeviceConfigurationInfo() throws RemoteException;
@@ -500,7 +500,7 @@
 //
 //    public void showLockTaskEscapeMessage(IBinder token) throws RemoteException;
 //
-//    public void setTaskDescription(IBinder token, ActivityManager.TaskDescription values)
+//    public void setTaskDescription(IBinder token, MyActivityManager.TaskDescription values)
 //            throws RemoteException;
 //    public void setTaskResizeable(int taskId, int resizeableMode) throws RemoteException;
 //    public void resizeTask(int taskId, Rect bounds, int resizeMode) throws RemoteException;

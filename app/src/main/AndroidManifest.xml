@@ -28,13 +28,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".main.MainActivity">
+        <activity
+            android:name=".main.SplashActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".main.MainActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".main.SecondActivity" />
         <activity android:name=".newwidgets.NewWidgetsActivity" />
         <activity android:name=".newwidgets.PaletteTestActivity" />
@@ -81,7 +86,9 @@
             android:exported="true" />
 
         <activity android:name=".installAPP.InstallAppActivity" />
-        <activity android:name=".change_skin.ChangeSkinActivity"></activity>
+        <activity android:name=".change_skin.ChangeSkinActivity" />
+        <activity android:name=".plug.PlugActivity" />
+        <activity android:name=".plug.StubActivity" />
     </application>
 
 </manifest>

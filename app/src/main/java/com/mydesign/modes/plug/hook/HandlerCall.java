@@ -25,6 +25,11 @@ public class HandlerCall implements Handler.Callback {
         switch (msg.what) {
             //ActivityThread的H的LAUNCH_ACTIVITY为100;
             case 100:
+                /*final ActivityClientRecord r = (ActivityClientRecord) msg.obj;
+
+                r.packageInfo = getPackageInfoNoCheck(
+                        r.activityInfo.applicationInfo, r.compatInfo);*/
+
                 handleLaunchActivity();
                 break;
             default:

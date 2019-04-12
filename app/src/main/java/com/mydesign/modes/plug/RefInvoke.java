@@ -9,6 +9,14 @@ import java.lang.reflect.Method;
  */
 public class RefInvoke {
 
+    public static Class getClass(String className) throws ClassNotFoundException {
+        return Class.forName(className);
+    }
+
+    public static Object getObject(String className) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+        return getClass(className).newInstance();
+    }
+
     //无参
     public static Object createObject(String className) {
         Class[] pareTyples = new Class[]{};

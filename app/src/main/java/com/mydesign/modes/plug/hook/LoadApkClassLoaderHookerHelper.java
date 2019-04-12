@@ -4,8 +4,11 @@ import android.annotation.SuppressLint;
 import android.content.pm.ApplicationInfo;
 
 import com.mydesign.modes.plug.RefInvoke;
+import com.mydesign.modes.plug.utils.PluginUtils;
 
 import java.io.File;
+import java.lang.ref.WeakReference;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -22,25 +25,52 @@ import java.util.Map;
  */
 public class LoadApkClassLoaderHookerHelper {
 
+    private static Map<String, Object> sLoadedApk = new HashMap<>();
 
+    /**
+     * 调用ActivityThread的getPackageInfoNoCheck()方法；getPackageInfoNoCheck(ApplicationInfo ai, CompatibilityInfo compatInfo)
+     *
+     * @param apkFile
+     */
     public static void hookLoadedApkInActivityThread(File apkFile) {
         try {
-            Class<?> aClass = Class.forName("android.app.ActivityThread");
+            Class<?> activityThreadClass = RefInvoke.getClass("android.app.ActivityThread");
             //获取ActivityThread的sCurrentActivityThread对象
-            Object sCurrentActivityThread = RefInvoke.getStaticFieldObject(aClass, "sCurrentActivityThread");
+            Object sCurrentActivityThread = RefInvoke.getStaticFieldObject(activityThreadClass, "sCurrentActivityThread");
             //获取mPackages对象，是ArrayMap对象，以packageName为key,以LoadedApk为Value;
-            Map mPackages = (Map) RefInvoke.getStaticFieldObject(aClass, "mPackages");
+            Map mPackages = (Map) RefInvoke.getStaticFieldObject(activityThreadClass, "mPackages");
 
-
-            //准备参数
-            Object campatibilityInfo = RefInvoke.getStaticFieldObject("android.content.res.CompatibilityInfo", "DEFAULT_COMPATIBILITY_INFO");
+            //获取CompatibilityInfo对象
+            Class compatibilityInfoClass = RefInvoke.getClass("android.content.res.CompatibilityInfo");
+            Object campatibilityInfo = RefInvoke.getStaticFieldObject(compatibilityInfoClass, "DEFAULT_COMPATIBILITY_INFO");
 
             //从 apk中取得Applicationlnfo信息;
             ApplicationInfo applicationInfo = generateApplicationInfo(apkFile);
 
+            if (applicationInfo == null) {
+                return;
+            }
 
-            //调用ActivityThread的getPackageInfoNoCheck()方法；
-            //getPackageInfoNoCheck(ApplicationInfo ai, CompatibilityInfo compatInfo)
+
+            //调用getPackageInfoNoCheck()方法获取loadedApk对象；
+            RefInvoke.getClass("");
+            Class[] pClass = {applicationInfo.getClass(), compatibilityInfoClass};
+            Object[] objects = {applicationInfo, campatibilityInfo};
+            Object loadedApk = RefInvoke.invokeStaticMethod(activityThreadClass, "getPackageInfoNoCheck", pClass, objects);
+
+            //为每个插件创建一个ClassLoader；
+            String odexPath = PluginUtils.getPluginOptDexDir(applicationInfo.packageName).getPath();
+            String libDir = PluginUtils.getPluginLibDir(applicationInfo.packageName).getPath();
+
+            CustomClassLoader classLoader = new CustomClassLoader(apkFile.getPath(), odexPath, libDir, ClassLoader.getSystemClassLoader());
+
+            //将LoadedApk的mClassLoader对象，换成自己创建的；
+            RefInvoke.setFieldObject(loadedApk, "mClassLoader", classLoader);
+
+            //把插件的LoadedApk对象放入缓存；
+            WeakReference weakReference = new WeakReference<>(loadedApk);
+            mPackages.put(applicationInfo.packageName, weakReference);
+            sLoadedApk.put(applicationInfo.packageName, loadedApk);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -56,19 +86,30 @@ public class LoadApkClassLoaderHookerHelper {
     private static ApplicationInfo generateApplicationInfo(File apkFile) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
 
         //找出需要反射的核心类PackageParser(解析apk包)
-        Class<?> packageParser = Class.forName("android.content.pm.PackageParser");
-        Class<?> packageParser$Package = Class.forName("android.content.pm.PackageParser$Package");
-
+        Class<?> packageParser = RefInvoke.getClass("android.content.pm.PackageParser");
+        Class<?> packageClass = RefInvoke.getClass("android.content.pm.PackageParser$Package");
         Object packageParserObj = packageParser.newInstance();
-        //调用PackageParser的parsePackage();
-        Class [] classes ={File.class,int.class};
-        Object [] objects ={apkFile,0};
-        Object parsePackage = RefInvoke.invokeInstanceMethod(packageParserObj, "parsePackage",classes,objects);
 
-        Object packageParser$PackageObj = packageParser$Package.newInstance();
-        
+        //第一个参数：调用PackageParser的parsePackage()获取Package对象;
+        Class[] classes = {File.class, int.class};
+        Object[] parameters = {apkFile, 0};
+        Object mPackage = RefInvoke.invokeInstanceMethod(packageParserObj, "parsePackage", classes, parameters);
 
+        //第三个参数
+        Class stateClass = RefInvoke.getClass("android.content.pm.PackageUserState");
+        Object state = stateClass.newInstance();
 
-        return null;
+        //调用generateApplicationInfo()方法，获取applicationInfo对象；
+        Class[] infoClasses = {packageClass, int.class, stateClass};
+        Object[] pValue = {mPackage, 0, state};
+
+        ApplicationInfo applicationInfo = (ApplicationInfo) RefInvoke.invokeStaticMethod(packageParser, "generateApplicationInfo", infoClasses, pValue);
+        String path = apkFile.getPath();
+        if (applicationInfo != null) {
+            applicationInfo.sourceDir = path;
+            applicationInfo.publicSourceDir = path;
+        }
+
+        return applicationInfo;
     }
 }

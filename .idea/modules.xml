@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/DesignModeTest.iml" filepath="$PROJECT_DIR$/DesignModeTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/StudyDemo.iml" filepath="$PROJECT_DIR$/StudyDemo.iml" />
       <module fileurl="file://D:\APPS\DesignModeTest\StudyDemo.iml" filepath="D:\APPS\DesignModeTest\StudyDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/baserecyclerviewhelp/baserecyclerviewhelp.iml" filepath="$PROJECT_DIR$/baserecyclerviewhelp/baserecyclerviewhelp.iml" />

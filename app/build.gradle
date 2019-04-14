@@ -57,6 +57,7 @@ dependencies {
 
     implementation project(':twinklingrefreshlayout')
     implementation project(':baserecyclerviewhelp')
+    //implementation project(':pluginutils')
 
     implementation 'org.greenrobot:eventbus:3.1.1'
 

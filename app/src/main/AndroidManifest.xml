@@ -20,6 +20,11 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:name=".base.MyApplication"
         android:allowBackup="true"
@@ -89,6 +94,9 @@
         <activity android:name=".change_skin.ChangeSkinActivity" />
         <activity android:name=".plug.PlugActivity" />
         <activity android:name=".plug.StubActivity" />
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/title_activity_login"></activity>
     </application>
 
 </manifest>

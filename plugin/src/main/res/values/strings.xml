@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Plugin</string>
+    <string name="plugin">我是插件APK中的资源文件</string>
+</resources>

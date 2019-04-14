@@ -1,1 +1,1 @@
-include ':app', ':twinklingrefreshlayout', ':baserecyclerviewhelp'
+include ':app', ':twinklingrefreshlayout', ':baserecyclerviewhelp', ':plugin'
